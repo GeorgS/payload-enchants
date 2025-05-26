@@ -1,6 +1,6 @@
 import type { GlobalConfig } from 'payload';
 
-import type { SanitizedArgsContext } from '../types';
+import type { SanitizedArgsContext } from '../types.js';
 
 export const extendGlobalConfig = ({
   ctx,

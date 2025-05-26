@@ -1,8 +1,8 @@
 import type { Plugin } from 'payload';
 
-import type { SanitizedArgsContext } from '../types';
-import { extendCollectionConfig } from './extendCollectionConfig';
-import { extendGlobalConfig } from './extendGlobalConfig';
+import type { SanitizedArgsContext } from '../types.js';
+import { extendCollectionConfig } from './extendCollectionConfig.js';
+import { extendGlobalConfig } from './extendGlobalConfig.js';
 
 export const buildPlugin = (ctx: SanitizedArgsContext): Plugin => {
   return (config) => {

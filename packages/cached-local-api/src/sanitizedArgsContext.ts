@@ -1,4 +1,4 @@
-import type { Args, FindOneFieldConfig, SanitizedArgsContext } from './types';
+import type { Args, FindOneFieldConfig, SanitizedArgsContext } from './types.js';
 
 const defaultBuildTagFind: SanitizedArgsContext['buildTagFind'] = ({ slug }) => `${slug}-find`;
 

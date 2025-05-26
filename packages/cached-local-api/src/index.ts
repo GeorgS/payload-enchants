@@ -1,13 +1,13 @@
 import type { Payload } from 'payload';
 
-import { buildCount } from './operations/count';
-import { buildFind } from './operations/find';
-import { buildFindByID } from './operations/findByID';
-import { buildFindGlobal } from './operations/findGlobal';
-import { buildFindOne } from './operations/findOne';
-import { buildPlugin } from './plugin';
-import { sanitizedArgsContext } from './sanitizedArgsContext';
-import type { Args, CachedPayload, CachedPayloadResult } from './types';
+import { buildCount } from './operations/count.js';
+import { buildFind } from './operations/find.js';
+import { buildFindByID } from './operations/findByID.js';
+import { buildFindGlobal } from './operations/findGlobal.js';
+import { buildFindOne } from './operations/findOne.js';
+import { buildPlugin } from './plugin/index.js';
+import { sanitizedArgsContext } from './sanitizedArgsContext.js';
+import type { Args, CachedPayload, CachedPayloadResult } from './types.js';
 
 export { CachedPayload };
 

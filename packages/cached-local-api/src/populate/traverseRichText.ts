@@ -1,6 +1,6 @@
 import type { Payload } from 'payload';
 
-import type { PopulationItem } from './types';
+import type { PopulationItem } from './types.js';
 
 export const traverseRichText = ({
   data,

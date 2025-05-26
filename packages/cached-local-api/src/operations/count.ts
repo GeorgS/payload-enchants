@@ -1,6 +1,6 @@
 import type { CollectionSlug, Payload } from 'payload';
 
-import type { Count, CountArgs, SanitizedArgsContext } from '../types';
+import type { Count, CountArgs, SanitizedArgsContext } from '../types.js';
 
 export const buildCount = ({
   ctx,

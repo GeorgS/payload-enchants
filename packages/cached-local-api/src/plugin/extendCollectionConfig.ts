@@ -4,7 +4,7 @@ import type {
   CollectionConfig,
 } from 'payload';
 
-import type { SanitizedArgsContext } from '../types';
+import type { SanitizedArgsContext } from '../types.js';
 
 const buildFindOneTags = ({
   cachedCollectionConfig,

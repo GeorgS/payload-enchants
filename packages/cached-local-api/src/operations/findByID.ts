@@ -1,7 +1,7 @@
 import type { CollectionSlug, Payload } from 'payload';
 
-import { populateDocRelationships } from '../populate';
-import type { Find, FindByID, FindByIDArgs, SanitizedArgsContext } from '../types';
+import { populateDocRelationships } from '../populate/index.js';
+import type { Find, FindByID, FindByIDArgs, SanitizedArgsContext } from '../types.js';
 
 export const buildFindByID = ({
   ctx,

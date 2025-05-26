@@ -9,9 +9,9 @@ import type {
   TypedLocale,
 } from 'payload';
 
-import type { Find, SanitizedArgsContext } from '../types';
-import { traverseFields } from './traverseFields';
-import type { PopulationItem } from './types';
+import type { Find, SanitizedArgsContext } from '../types.js';
+import { traverseFields } from './traverseFields.js';
+import type { PopulationItem } from './types.js';
 
 export const populateDocRelationships = async ({
   context,

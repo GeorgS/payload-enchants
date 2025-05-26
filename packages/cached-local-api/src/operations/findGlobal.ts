@@ -1,7 +1,7 @@
 import type { GlobalSlug, Payload } from 'payload';
 
-import { populateDocRelationships } from '../populate';
-import type { Find, FindGlobal, FindGlobalArgs, SanitizedArgsContext } from '../types';
+import { populateDocRelationships } from '../populate/index.js';
+import type { Find, FindGlobal, FindGlobalArgs, SanitizedArgsContext } from '../types.js';
 
 export const buildFindGlobal = ({
   ctx,

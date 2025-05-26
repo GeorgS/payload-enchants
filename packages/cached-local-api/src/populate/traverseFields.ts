@@ -1,8 +1,8 @@
 import type { Field, Payload } from 'payload';
 import { tabHasName } from 'payload/shared';
 
-import { traverseRichText } from './traverseRichText';
-import type { PopulationItem } from './types';
+import { traverseRichText } from './traverseRichText.js';
+import type { PopulationItem } from './types.js';
 
 export const traverseFields = ({
   data,

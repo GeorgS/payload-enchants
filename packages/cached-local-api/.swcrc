@@ -1,5 +1,5 @@
 {
-  "$schema": "https://json.schemastore.org/swcrc",
+  "$schema": "https://swc.rs/schema.json",
   "sourceMaps": true,
   "jsc": {
     "target": "esnext",
@@ -13,8 +13,5 @@
         "runtime": "automatic"
       }
     }
-  },
-  "module": {
-    "type": "es6"
   }
 }

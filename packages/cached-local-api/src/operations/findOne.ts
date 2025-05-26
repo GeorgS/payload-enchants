@@ -1,8 +1,8 @@
 import type { CollectionSlug, Payload, TypedCollection } from 'payload';
 import { APIError } from 'payload';
 
-import { populateDocRelationships } from '../populate';
-import type { Find, FindOneArgs, SanitizedArgsContext } from '../types';
+import { populateDocRelationships } from '../populate/index.js';
+import type { Find, FindOneArgs, SanitizedArgsContext } from '../types.js';
 
 export const buildFindOne = ({
   ctx,
