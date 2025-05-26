@@ -7,7 +7,9 @@ import type {
   PaginatedDocs,
   Payload,
   Plugin,
+  TransformCollectionWithSelect,
   TypedCollection,
+  TypedCollectionSelect,
   TypedGlobal,
   Where,
 } from 'payload';
@@ -27,55 +29,45 @@ type UnstableCache = <T extends Callback>(
   },
 ) => T;
 
-export type Select = string[];
-
-export type Populate = Record<string, Select | true>;
-
 export type Find = <T extends CollectionSlug>(
   args: FindArgs<T>,
-) => Promise<PaginatedDocs<TypedCollection[T]>>;
+) => Promise<PaginatedDocs<TransformCollectionWithSelect<T, TypedCollectionSelect[T]>>>;
 
 export type FindArgs<T extends CollectionSlug> = {
-  populate?: Populate;
   populatedDocsMap?: Map<string, Record<string, any>>;
-  select?: Select;
   tags?: string[];
-} & Parameters<typeof payload.find<T>>[0];
+} & Parameters<typeof payload.find<T, TypedCollectionSelect[T]>>[number];
 
 export type FindOneArgs<T extends keyof TypedCollection> = {
   /** @default first field from the fields array */
   field?: string;
-  populate?: Populate;
-  select?: Select;
   value: string;
   // eslint-disable-next-line perfectionist/sort-intersection-types
-} & Omit<Parameters<Find>[0], 'limit' | 'page' | 'pagination' | 'where'> & {
+} & Omit<Parameters<Find>[number], 'limit' | 'page' | 'pagination' | 'where'> & {
     collection: T;
   };
 
 export type FindOne = <T extends CollectionSlug>(
   args: FindOneArgs<T>,
-) => Promise<TypedCollection[T] | null>;
+) => Promise<TransformCollectionWithSelect<T, TypedCollectionSelect[T]> | null>;
 
 export type FindByID = <T extends CollectionSlug>(
   args: FindByIDArgs<T>,
 ) => Promise<TypedCollection[T]>;
 
-export type FindByIDArgs<T extends CollectionSlug> = {
-  populate?: Populate;
-  select?: Select;
-} & Parameters<typeof payload.findByID<T>>[0];
+export type FindByIDArgs<T extends CollectionSlug> = Parameters<
+  typeof payload.findByID<T, false, TypedCollectionSelect[T]>
+>[0];
 
 export type FindGlobal = <T extends GlobalSlug>(args: FindGlobalArgs<T>) => Promise<TypedGlobal[T]>;
 
-export type FindGlobalArgs<T extends GlobalSlug> = {
-  populate?: Populate;
-  select?: Select;
-} & Parameters<typeof payload.findGlobal<T>>[0];
+export type FindGlobalArgs<T extends GlobalSlug> = Parameters<
+  typeof payload.findGlobal<T, TypedCollectionSelect[T]>
+>[number];
 
 export type Count = Payload['count'];
 
-export type CountArgs<T extends CollectionSlug> = Parameters<typeof payload.count<T>>[0];
+export type CountArgs<T extends CollectionSlug> = Parameters<typeof payload.count<T>>[number];
 
 export type FindOneFieldConfig = {
   buildWhere?: (args: {

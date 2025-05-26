@@ -35,13 +35,13 @@ export const populateDocRelationships = async ({
   depth: number;
   docs: { data: any; fields: Field[] }[];
   draft?: boolean;
-  fallbackLocale?: string;
+  fallbackLocale?: string | false;
   find: Find;
   locale?: string;
   overrideAccess?: boolean;
   payload: Payload;
   populatedDocsMap: Map<string, Record<string, any>>;
-  req?: PayloadRequest;
+  req?: Partial<PayloadRequest>;
   showHiddenFields?: boolean;
   user?: Record<string, any>;
 }) => {

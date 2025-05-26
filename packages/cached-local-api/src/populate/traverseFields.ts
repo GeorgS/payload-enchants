@@ -138,7 +138,12 @@ export const traverseFields = ({
       return;
     }
 
-    if (field.type === 'group' && data[field.name] && typeof data[field.name] === 'object') {
+    if (
+      field.type === 'group' &&
+      'name' in field &&
+      data[field.name] &&
+      typeof data[field.name] === 'object'
+    ) {
       traverseFields({ data: data[field.name], fields: field.fields, payload, populationList });
 
       return;

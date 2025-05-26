@@ -65,14 +65,14 @@
     "@types/he": "^1.2.3",
     "@types/react": "npm:types-react@19.0.0-rc.1",
     "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",
-    "react": "19.0.0-rc-66855b96-20241106",
-    "react-dom": "19.0.0-rc-66855b96-20241106",
+    "react": "19.1.0",
+    "react-dom": "19.0.0-rc-65a56d0e-20241020",
     "typescript": "5.7.2"
   },
   "peerDependencies": {
-    "@payloadcms/translations": "^3.1.0",
-    "@payloadcms/ui": "^3.1.0",
-    "payload": "^3.1.0"
+    "@payloadcms/translations": "3.38.0",
+    "@payloadcms/ui": "3.38.0",
+    "payload": "3.38.0"
   },
   "publishConfig": {
     "exports": {

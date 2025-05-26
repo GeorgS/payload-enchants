@@ -56,9 +56,10 @@ export const buildFind = ({
       [JSON.stringify(keys)],
       {
         tags:
-          args.tags ?? ctx.useSimpleCacheStrategy
+          args.tags ??
+          (ctx.useSimpleCacheStrategy
             ? [ctx.SIMPLE_CACHE_TAG]
-            : [ctx.buildTagFind({ slug: args.collection as string })],
+            : [ctx.buildTagFind({ slug: args.collection as string })]),
       },
     )();
 
@@ -105,6 +106,7 @@ export const buildFind = ({
           payload,
           populatedDocsMap,
           showHiddenFields: args.showHiddenFields,
+          req: args.req,
         });
       }
     }
