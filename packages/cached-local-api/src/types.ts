@@ -57,13 +57,14 @@ export type FindByID = <T extends CollectionSlug>(
 
 export type FindByIDArgs<T extends CollectionSlug> = Parameters<
   typeof payload.findByID<T, false, TypedCollectionSelect[T]>
->[0];
+>[number];
 
 export type FindGlobal = <T extends GlobalSlug>(args: FindGlobalArgs<T>) => Promise<TypedGlobal[T]>;
 
-export type FindGlobalArgs<T extends GlobalSlug> = Parameters<
-  typeof payload.findGlobal<T, TypedCollectionSelect[T]>
->[number];
+export type FindGlobalArgs<T extends GlobalSlug> = Omit<
+  Parameters<typeof payload.findGlobal<T, TypedCollectionSelect[T]>>[number],
+  'slug'
+> & { slug: T };
 
 export type Count = Payload['count'];
 
@@ -104,13 +105,13 @@ export type Args = {
     shouldCacheFindOneOperation?: (args: FindOneArgs<any>) => Promise<boolean> | boolean;
     shouldCacheFindOperation?: (args: FindArgs<any>) => Promise<boolean> | boolean;
     shouldRevalidateGlobalOnChange?: (
-      args: Parameters<GlobalAfterChangeHook>[0],
+      args: Parameters<GlobalAfterChangeHook>[number],
     ) => Promise<boolean> | boolean;
     shouldRevalidateOnChange?: (
-      args: Parameters<CollectionAfterChangeHook>[0],
+      args: Parameters<CollectionAfterChangeHook>[number],
     ) => Promise<boolean> | boolean;
     shouldRevalidateOnDelete?: (
-      args: Parameters<CollectionAfterDeleteHook>[0],
+      args: Parameters<CollectionAfterDeleteHook>[number],
     ) => Promise<boolean> | boolean;
   };
   revalidateTag: (tag: string) => void;
@@ -146,13 +147,13 @@ export type SanitizedArgsContext = {
   shouldCacheFindOneOperation: (args: FindOneArgs<any>) => Promise<boolean> | boolean;
   shouldCacheFindOperation: (args: FindArgs<any>) => Promise<boolean> | boolean;
   shouldRevalidateGlobalOnChange: (
-    args: Parameters<GlobalAfterChangeHook>[0],
+    args: Parameters<GlobalAfterChangeHook>[number],
   ) => Promise<boolean> | boolean;
   shouldRevalidateOnChange: (
-    args: Parameters<CollectionAfterChangeHook>[0],
+    args: Parameters<CollectionAfterChangeHook>[number],
   ) => Promise<boolean> | boolean;
   shouldRevalidateOnDelete: (
-    args: Parameters<CollectionAfterDeleteHook>[0],
+    args: Parameters<CollectionAfterDeleteHook>[number],
   ) => Promise<boolean> | boolean;
   unstable_cache: UnstableCache;
   useSimpleCacheStrategy: boolean;
