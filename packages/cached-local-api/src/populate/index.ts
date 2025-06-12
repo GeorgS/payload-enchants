@@ -126,7 +126,7 @@ export const populateDocRelationships = async ({
     const populatedDoc = populatedDocsMap.get(`${item.collection.slug}-${item.id}`);
 
     if (!populatedDoc || typeof populatedDoc !== 'object') {
-      return;
+      continue;
     }
 
     item.ref[item.accessor] = JSON.parse(JSON.stringify(populatedDoc));
