@@ -138,6 +138,7 @@ export const traverseFields = ({
       return;
     }
 
+    // nested groups
     if (
       field.type === 'group' &&
       'name' in field &&
@@ -145,6 +146,13 @@ export const traverseFields = ({
       typeof data[field.name] === 'object'
     ) {
       traverseFields({ data: data[field.name], fields: field.fields, payload, populationList });
+
+      return;
+    }
+
+    // virtual groups
+    if (field.type === 'group' && !('name' in field)) {
+      traverseFields({ data, fields: field.fields, payload, populationList });
 
       return;
     }
