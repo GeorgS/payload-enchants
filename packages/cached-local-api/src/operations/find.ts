@@ -35,6 +35,8 @@ export const buildFind = ({
       args.where,
       args.limit,
       args.page,
+      args.select,
+      args.populate,
       ctx.useSimpleCacheStrategy ? args.depth : null,
       args.pagination,
       args.overrideAccess,
