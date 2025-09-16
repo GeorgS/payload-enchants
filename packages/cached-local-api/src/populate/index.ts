@@ -77,6 +77,13 @@ export const populateDocRelationships = async ({
         }),
     );
 
+    const tags = Array.from(ids).map((each) =>
+      ctx.buildTagFindByID({
+        id: each,
+        slug: collection,
+      }),
+    );
+
     populatedPromises.push(
       new Promise(async (resolve) => {
         const { docs } = await find({
@@ -93,12 +100,10 @@ export const populateDocRelationships = async ({
           populatedDocsMap,
           req,
           showHiddenFields,
-          tags: Array.from(ids).map((each) =>
-            ctx.buildTagFindByID({
-              id: each,
-              slug: collection,
-            }),
-          ),
+          // in case we would generate more then the 128 tags vercel limit
+          // we opt for the more general find tag that will update this when
+          // any document of the collection is updated
+          tags: tags.length > 128 ? [ctx.buildTagFind({ slug: collection })] : tags,
           user,
           where: {
             id: {
