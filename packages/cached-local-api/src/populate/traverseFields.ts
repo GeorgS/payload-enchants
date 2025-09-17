@@ -122,7 +122,7 @@ export const traverseFields = ({
     if (field.type === 'array' && Array.isArray(data?.[field.name])) {
       for (const item of data[field.name]) {
         if (item && typeof item === 'object') {
-          traverseFields({ data: item, fields: field.fields, payload, populationList });
+          traverseFields({ data: item, fields: field.fields, payload, populate, populationList });
         }
       }
 
@@ -139,7 +139,7 @@ export const traverseFields = ({
 
         if (!block) continue;
 
-        traverseFields({ data: item, fields: block.fields, payload, populationList });
+        traverseFields({ data: item, fields: block.fields, payload, populate, populationList });
       }
 
       return;
@@ -152,20 +152,26 @@ export const traverseFields = ({
       data[field.name] &&
       typeof data[field.name] === 'object'
     ) {
-      traverseFields({ data: data[field.name], fields: field.fields, payload, populationList });
+      traverseFields({
+        data: data[field.name],
+        fields: field.fields,
+        payload,
+        populate,
+        populationList,
+      });
 
       return;
     }
 
     // virtual groups
     if (field.type === 'group' && !('name' in field)) {
-      traverseFields({ data, fields: field.fields, payload, populationList });
+      traverseFields({ data, fields: field.fields, payload, populate, populationList });
 
       return;
     }
 
     if (field.type === 'row' || field.type === 'collapsible') {
-      traverseFields({ data, fields: field.fields, payload, populationList });
+      traverseFields({ data, fields: field.fields, payload, populate, populationList });
 
       return;
     }
@@ -174,7 +180,8 @@ export const traverseFields = ({
       field.tabs.forEach((tab) => {
         const tabData = tabHasName(tab) ? data[tab.name] : data;
 
-        if (tabData) traverseFields({ data: tabData, fields: tab.fields, payload, populationList });
+        if (tabData)
+          traverseFields({ data: tabData, fields: tab.fields, payload, populate, populationList });
       });
     }
   });

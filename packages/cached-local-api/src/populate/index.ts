@@ -124,7 +124,7 @@ export const populateDocRelationships = async ({
         });
 
         for (const doc of docs) {
-          populatedDocsMap.set(`${collection}-${doc.id}`, doc);
+          populatedDocsMap.set(`${collection}-${doc.id}-${JSON.stringify(select)}`, doc);
         }
 
         return resolve({ collection, docs });
@@ -139,7 +139,9 @@ export const populateDocRelationships = async ({
   const nextDepthData = [] as { data: any; fields: Field[] }[];
 
   for (const item of populationList) {
-    const populatedDoc = populatedDocsMap.get(`${item.collection.slug}-${item.id}`);
+    const populatedDoc = populatedDocsMap.get(
+      `${item.collection.slug}-${item.id}-${JSON.stringify(item.select)}`,
+    );
 
     if (!populatedDoc || typeof populatedDoc !== 'object') {
       continue;
