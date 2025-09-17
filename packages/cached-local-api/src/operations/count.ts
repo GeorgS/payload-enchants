@@ -61,7 +61,7 @@ export const buildCount = ({
       });
     } else {
       ctx.debugLog({
-        message: `Cache SKIP, operation: cound, collection: ${args.collection.toString()}, execution time - ${Date.now() - start} MS`,
+        message: `Cache SKIP, operation: count, collection: ${args.collection.toString()}, execution time - ${Date.now() - start} MS`,
         payload,
       });
     }

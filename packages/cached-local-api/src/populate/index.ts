@@ -9,7 +9,7 @@ import type {
   TypedLocale,
 } from 'payload';
 
-import type { Find, SanitizedArgsContext } from '../types.js';
+import type { Find, FindArgs, SanitizedArgsContext } from '../types.js';
 import { traverseFields } from './traverseFields.js';
 import type { PopulationItem } from './types.js';
 
@@ -25,6 +25,7 @@ export const populateDocRelationships = async ({
   overrideAccess,
   payload,
   populatedDocsMap,
+  populate,
   req,
   showHiddenFields,
   user,
@@ -41,6 +42,7 @@ export const populateDocRelationships = async ({
   overrideAccess?: boolean;
   payload: Payload;
   populatedDocsMap: Map<string, Record<string, any>>;
+  populate?: FindArgs<CollectionSlug>['populate'];
   req?: Partial<PayloadRequest>;
   showHiddenFields?: boolean;
   user?: Record<string, any>;
@@ -50,7 +52,7 @@ export const populateDocRelationships = async ({
   const populationLists = docs.map((doc) => {
     const populationList: PopulationItem[] = [];
 
-    traverseFields({ data: doc.data, fields: doc.fields, payload, populationList });
+    traverseFields({ data: doc.data, fields: doc.fields, payload, populationList, populate });
 
     return { doc, populationList };
   });
@@ -76,6 +78,8 @@ export const populateDocRelationships = async ({
           return each.id;
         }),
     );
+
+    const select = populationList.find((each) => each.collection.slug === collection)?.select;
 
     const uniqueIds = Array.from(ids);
 
@@ -105,6 +109,8 @@ export const populateDocRelationships = async ({
           locale: locale as TypedLocale,
           overrideAccess,
           pagination: false,
+          select,
+          populate,
           populatedDocsMap,
           req,
           showHiddenFields,
@@ -155,6 +161,7 @@ export const populateDocRelationships = async ({
       fallbackLocale,
       find,
       locale,
+      populate,
       overrideAccess,
       payload,
       populatedDocsMap,

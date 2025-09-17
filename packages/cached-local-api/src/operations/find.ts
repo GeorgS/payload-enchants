@@ -93,13 +93,22 @@ export const buildFind = ({
           if (!populatedDocsMap.has(docKey)) populatedDocsMap.set(docKey, { ...doc });
         }
 
+        const collectionFields = payload.collections[args.collection].config.fields;
+        const selectedFields = args.select ? Object.keys(args.select) : undefined;
+        const fields = selectedFields
+          ? collectionFields.filter(
+              (field) => 'name' in field && selectedFields.includes(field.name),
+            )
+          : collectionFields;
+
         await populateDocRelationships({
           context: args.context,
           ctx,
           depth,
+          populate: args.populate,
           docs: result.docs.map((doc) => ({
             data: doc,
-            fields: payload.collections[args.collection].config.fields,
+            fields,
           })),
           draft: args.draft,
           fallbackLocale: args.fallbackLocale ?? undefined,

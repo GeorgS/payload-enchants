@@ -17,7 +17,7 @@
   "dependencies": {
     "@payload-enchants/better-localized-fields": "workspace:*",
     "@payload-enchants/better-use-as-title": "workspace:*",
-    "@payload-enchants/cached-local-api": "workspace:*",
+    "@georgs/cached-local-api": "workspace:*",
     "@payload-enchants/docs-reorder": "workspace:*",
     "@payload-enchants/fields-select": "workspace:*",
     "@payload-enchants/seo": "workspace:*",

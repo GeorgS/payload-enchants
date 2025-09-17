@@ -1,19 +1,22 @@
-import type { Field, Payload } from 'payload';
+import type { CollectionSlug, Field, Payload } from 'payload';
 import { tabHasName } from 'payload/shared';
 
 import { traverseRichText } from './traverseRichText.js';
 import type { PopulationItem } from './types.js';
+import { FindArgs } from '../types.js';
 
 export const traverseFields = ({
   data,
   fields,
   payload,
   populationList,
+  populate,
 }: {
   data: Record<string, any>;
   fields: Field[];
   payload: Payload;
   populationList: PopulationItem[];
+  populate?: FindArgs<CollectionSlug>['populate'];
 }) => {
   fields.forEach((field) => {
     if (field.type === 'relationship' || field.type === 'upload') {
@@ -30,6 +33,7 @@ export const traverseFields = ({
           populationList.push({
             accessor: index,
             collection,
+            select: populate?.[collection.slug],
             id,
             ref: data[field.name],
           });
@@ -61,6 +65,7 @@ export const traverseFields = ({
             populationList.push({
               accessor: 'value',
               collection,
+              select: populate?.[collection.slug],
               id: value,
               ref: data[field.name][index],
             });
@@ -79,6 +84,7 @@ export const traverseFields = ({
         populationList.push({
           accessor: field.name,
           collection,
+          select: populate?.[collection.slug],
           id: data[field.name],
           ref: data,
         });
@@ -100,6 +106,7 @@ export const traverseFields = ({
           populationList.push({
             accessor: 'value',
             collection,
+            select: populate?.[collection.slug],
             id: data[field.name].value,
             ref: data[field.name],
           });
@@ -107,7 +114,7 @@ export const traverseFields = ({
     }
 
     if (field.type === 'richText' && data?.[field.name]) {
-      traverseRichText({ data: data[field.name], payload, populationList });
+      traverseRichText({ data: data[field.name], payload, populate, populationList });
 
       return;
     }
